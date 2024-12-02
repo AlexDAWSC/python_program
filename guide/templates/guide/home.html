@@ -1,30 +1,64 @@
 {% extends 'guide/base.html' %}
+{% load static %}
 {% block title %}Route 66 - The Guide{% endblock %}
 
 {% block content %}
-    <h1 class="text-center mb-4">Welcome to the definitive Guide of Route 66!</h1>
+<h1 class="text-center text-dark mb-4">Welcome to the definitive Guide of Route 66!</h1>
 
-    <div class="row justify-content-center">
-        <div id="map" style="height: 500px; width: 100%;"></div>
-    </div>
+<div class="row justify-content-center">
+    <div id="map" style="height: 500px; width: 100%;"></div>
+</div>
 
-    <!-- Include Leaflet.js from CDN -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.1/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet@1.9.1/dist/leaflet.js"></script>
+<script>
+    // Initialize the map with the center based on the first route.
+    var map = L.map('map').setView([{{ routes.0.latitude }}, {{ routes.0.longitude }}], 5);
 
-    <script>
-        // Crear el mapa centrado en una ubicación predeterminada
-        var map = L.map('map').setView([{{ cities.0.latitude }}, {{ cities.0.longitude }}], 5);  // Centro del mapa
+    // Add the OpenStreetMap base layer
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
 
-        // Añadir una capa de OpenStreetMap
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(map);
+    // Define an empty array for the routes
+    var ruta66 = [];
 
-        // Recorrer todas las ciudades y añadir un marcador para cada una
-        {% for city in cities %}
-            L.marker([{{ city.latitude }}, {{ city.longitude }}]).addTo(map)
-                .bindPopup('<b>{{ city.name }}</b><br>Lat: {{ city.latitude }}<br>Lon: {{ city.longitude }}');
+    // Add the routes to the 'ruta66' array using Django Template
+    {% for route in routes %}
+        ruta66.push([{{ route.latitude }}, {{ route.longitude }}]);
+    {% endfor %}
+
+    // Draw the polyline representing the route
+    var polyline = L.polyline(ruta66, { color: 'blue' }).addTo(map);
+    map.fitBounds(polyline.getBounds());
+
+    // Create an object with the restaurant data
+    var restaurantsData = [
+        {% for restaurant in restaurants %}
+        {
+            name: "{{ restaurant.name }}",
+            city: "{{ restaurant.location_city }}",
+            state: "{{ restaurant.location_state }}",
+            latitude: {{ restaurant.latitude }},
+            longitude: {{ restaurant.longitude }},
+            description: "{{ restaurant.description|escapejs }}",
+            is_open: {{ restaurant.is_open|yesno:"true,false" }}
+        },
         {% endfor %}
-    </script>
+    ];
+    var citiesData = [
+        {% for city in cities %}
+        {
+            name: "{{ city.name }}",
+            state: "{{ city.state }}",
+            description: "{{ city.description|escapejs }}",
+            latitude: {{ city.latitude }},
+            longitude: {{ city.longitude }}
+        },
+        {% endfor %}
+];
+</script>
+
+<!-- Include the city and restaurant scripts -->
+<script src="{% static 'guide/cities.js' %}"></script>
+<script src="{% static 'guide/restaurants.js' %}"></script>
+
 {% endblock %}

@@ -1,13 +1,29 @@
+/* Import custom font */
 @font-face {
   font-family: "AmericanCaptain";
   src: url("AmericanCaptain-MdEY.otf") format("opentype");
   font-weight: normal;
 }
 
+/* Basic styling for html and body to ensure full height and no margins */
+html,
+body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  background-image: url("images/bg.jpg");
+  background-position: center center;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+/* Navbar styling */
 .navbar {
   background-color: rgba(255, 255, 255, 0.7);
 }
 
+/* Styling for navigation links */
 .nav-link {
   font-size: 1.5rem;
 }
@@ -16,19 +32,8 @@
 .nav-link:hover {
   text-decoration: underline;
 }
-/* Basic styling for html and body to ensure full height and no margins */
-html,
-body {
-  height: 100%;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  background-image: url("bg.jpg");
-  background-position: center center;
-  background-size: cover;
-  background-attachment: fixed;
-}
 
+/* Heading styling */
 h1 {
   font-family: "AmericanCaptain", sans-serif;
   font-size: 5rem;
