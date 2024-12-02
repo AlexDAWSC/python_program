@@ -1,0 +1,28 @@
+{% extends 'news/base.html' %}
+
+{% block title %}Route 66 - News{% endblock %}
+
+{% block content %}
+    <h1 class="text-center text-dark">News about The Route</h1>
+
+    <div class="row row-cols-1 row-cols-md-1 row-cols-lg-1 justify-content-center">
+        {% for new in news %}
+        <div class="col mb-4">
+            <div class="card h-100">
+                <div class="card-body text-dark">
+                    <!-- News Title with a link to the detail page -->
+                    <a href="{% url 'news:detail' new.id %}" class="text-decoration-none text-dark">
+                        <h3 class="card-title">{{ new.title }}</h3>
+                    </a>
+                    <!-- News Description -->
+                    <p class="card-text">{{ new.description }}</p>
+                    <!-- News Date -->
+                    <p class="card-text">
+                        <small class="text-muted">{{ new.date }}</small>
+                    </p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}

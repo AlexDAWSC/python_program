@@ -1,0 +1,24 @@
+{% extends 'news/base.html' %}
+
+{% block title %}Portfolio: {{ new.title }}{% endblock %}
+    
+{% block content %}
+    <div class="container mt-4 bg-light text-dark p-4 rounded shadow-sm mb-5">
+        <!-- Back button to return to the previous page -->
+        <p><a href="{% url 'news:news' %}" class="text-decoration-none text-primary">&larr; Go Back</a></p>
+
+        <!-- News Post Title -->
+        <h1 class="mt-4 mb-3">{{ new.title }}</h1>
+
+        <!-- News Post Description -->
+        <p class="lead mb-4">{{ new.description }}</p>
+
+        <!-- News Post Date -->
+        <p><small class="text-muted">{{ new.date }}</small></p>
+
+        <!-- Main Content of the News Post -->
+        <div class="mt-4">
+            <p>{{ new.content }}</p>
+        </div>
+    </div>
+{% endblock %}

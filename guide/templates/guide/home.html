@@ -1,0 +1,30 @@
+{% extends 'guide/base.html' %}
+{% block title %}Route 66 - The Guide{% endblock %}
+
+{% block content %}
+    <h1 class="text-center mb-4">Welcome to the definitive Guide of Route 66!</h1>
+
+    <div class="row justify-content-center">
+        <div id="map" style="height: 500px; width: 100%;"></div>
+    </div>
+
+    <!-- Include Leaflet.js from CDN -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.1/dist/leaflet.js"></script>
+
+    <script>
+        // Crear el mapa centrado en una ubicación predeterminada
+        var map = L.map('map').setView([{{ cities.0.latitude }}, {{ cities.0.longitude }}], 5);  // Centro del mapa
+
+        // Añadir una capa de OpenStreetMap
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // Recorrer todas las ciudades y añadir un marcador para cada una
+        {% for city in cities %}
+            L.marker([{{ city.latitude }}, {{ city.longitude }}]).addTo(map)
+                .bindPopup('<b>{{ city.name }}</b><br>Lat: {{ city.latitude }}<br>Lon: {{ city.longitude }}');
+        {% endfor %}
+    </script>
+{% endblock %}

@@ -1,0 +1,96 @@
+@font-face {
+  font-family: "AmericanCaptain";
+  src: url("AmericanCaptain-MdEY.otf") format("opentype");
+  font-weight: normal;
+}
+
+.navbar {
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+.nav-link {
+  font-size: 1.5rem;
+}
+
+/* Hover effect on navigation links */
+.nav-link:hover {
+  text-decoration: underline;
+}
+/* Basic styling for html and body to ensure full height and no margins */
+html,
+body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  background-image: url("bg.jpg");
+  background-position: center center;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+h1 {
+  font-family: "AmericanCaptain", sans-serif;
+  font-size: 5rem;
+}
+
+/* Making the content area flexible to occupy remaining space */
+.content {
+  flex: 1;
+}
+
+/* Footer styling with a light background and centered text */
+footer {
+  background-color: rgba(255, 255, 255, 0.7);
+  padding: 20px 0;
+  text-align: center;
+  border-top: 1px solid #e9ecef;
+}
+
+/* No margin for footer paragraph */
+footer p {
+  margin: 0;
+}
+
+/* Styling footer links with a soft blue color */
+footer a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+/* Hover effect for footer links */
+footer a:hover {
+  text-decoration: underline;
+}
+
+/* Logo styling with a fixed width */
+.logo-style {
+  width: 7rem;
+  height: 100%;
+}
+
+/* Narrow button with a fixed width */
+.btn-narrow {
+  width: 8rem;
+}
+
+/* Title styling with normal font-weight and style */
+.title-place {
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* Removing text-decoration on links but underlining on hover */
+a.text-decoration-none:hover {
+  text-decoration: underline !important;
+  cursor: pointer;
+}
+
+/* Card text truncation for 5 lines */
+.card-text {
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
